@@ -1,6 +1,7 @@
 package com.example.alartestapp.model;
 
 
+import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -17,8 +18,8 @@ GET http://www.alarstudios.com/test/auth.cgi(параметры запроса: 
 что логин/пароль неправильные. Сервер выдаст "ok" на "test"/"123"
 и тогда идем на следующий экран, запоминая "code". */
 @GET("auth.cgi")
-Single<AuthResponse> getAuthResponce(@Query(username) String username,
-                                     @Query(password) String password);
+Single<AuthResponse> getAuthResponce(@Query("username") String username,
+                                     @Query("password") String password);
 
 
  /*
