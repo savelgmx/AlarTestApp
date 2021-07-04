@@ -13,6 +13,12 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
+        buildConfigField 'String', 'API_URL', '"https://www.alarstudios.com/test/"'
+        buildConfigField 'String','USERNAME','"test"'
+        buildConfigField 'String','PASSWORD','"123"'
+
     }
 
     buildTypes {
@@ -53,5 +59,9 @@ dependencies {
 
     implementation 'io.reactivex.rxjava2:rxjava:2.1.6'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
+    implementation 'com.arello-mobile:moxy:1.5.3'
+    annotationProcessor 'com.arello-mobile:moxy-compiler:1.5.3'
+    implementation 'com.arello-mobile:moxy-app-compat:1.5.3'
 
 }

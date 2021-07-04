@@ -9,6 +9,7 @@ import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.List;
 
+import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -62,4 +63,22 @@ public class ApiUtils {
         }
         return sApi;
     }
+
+    public static OkHttpClient getBasicAuthClient(final String username, final String password, boolean createNewInstance) {
+        if (createNewInstance || sClient == null) {
+            OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
+            builder.authenticator((route, response) -> {
+                String credential = Credentials.basic(username, password);
+                return response.request().newBuilder().header("Authorization", credential).build();
+            });
+            if (!BuildConfig.BUILD_TYPE.contains("release")) {
+                builder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
+            }
+
+            sClient = builder.build();
+        }
+        return sClient;
+    }
+
+
 }
