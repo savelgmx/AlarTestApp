@@ -1,6 +1,7 @@
 package com.example.alartestapp;
 
 
+import android.arch.lifecycle.MutableLiveData;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -18,6 +19,7 @@ import java.io.IOException;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -33,68 +35,33 @@ import static com.example.alartestapp.api.AlarApi.BASE_URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    Retrofit retrofit;
-    private CompositeDisposable mCompositeDisposable;
+    private Disposable mDisposable;
+    private AlarApi mApi;
+    private MutableLiveData<Boolean> mIsLoading = new MutableLiveData<>();
+    private MutableLiveData<Boolean> mIsErrorVisible = new MutableLiveData<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Пока обращение к серверу через ретрофит делаем
-        //прямо здесь
- /*       HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
-
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(client)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-*/        callAlarApi();
+          callAlarApi();
     }
     private void callAlarApi(){
-        Request request = new Request.Builder()
-                .url(BuildConfig.API_URL)
-                .build();
+        mDisposable = mApi.getAuthResponce(BuildConfig.USERNAME,BuildConfig.PASSWORD)
+                .map(AuthResponse::getCode)
+                .doOnSubscribe(disposable -> mIsLoading.postValue(true))
+                .doFinally(() -> mIsLoading.postValue(false))
+                .doOnSuccess(response -> mIsErrorVisible.postValue(false))
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                        response -> mStorage.insertProjects(response),
+                        throwable -> {
+                            boolean value = mProjects.getValue() == null || mProjects.getValue().size() == 0;
+                            mIsErrorVisible.postValue(value);
+                        });
 
-        OkHttpClient client = ApiUtils.getBasicAuthClient(
-                BuildConfig.USERNAME,
-                BuildConfig.PASSWORD,
-                true);
-        client.newCall(request).enqueue(new Callback() {
-            //используем Handler, чтобы показывать ошибки в Main потоке, т.к. наши коллбеки возвращаются в рабочем потоке
-            Handler mainHandler = new Handler(getApplication().getMainLooper());
 
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                //   mainHandler.post(() -> showMessage(R.string.request_error));
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull final Response response) throws IOException {
-                mainHandler.post(() -> {
-                    if (!response.isSuccessful()) {
-                        //todo добавить полноценную обработку ошибок по кодам ответа от сервера и телу запроса
-                        //showMessage(R.string.auth_error);
-                    } else {
-                        try {
-                            Gson gson = new Gson();
-                            JsonObject json = gson.fromJson(response.body().string(), JsonObject.class);
-                            AuthResponse  authResponse = gson.fromJson(json.get("data"), AuthResponse.class);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-            }
-        });
     }
 }
 
