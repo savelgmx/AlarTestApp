@@ -36,10 +36,21 @@ import static com.example.alartestapp.api.AlarApi.BASE_URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Disposable mDisposable;
+    private Disposable mDisposable= new Disposable() {
+        @Override
+        public void dispose() {
+
+        }
+
+        @Override
+        public boolean isDisposed() {
+            return false;
+        }
+    };
     private AlarApi mApi;
     private MutableLiveData<Boolean> mIsLoading = new MutableLiveData<>();
     private MutableLiveData<Boolean> mIsErrorVisible = new MutableLiveData<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 .doFinally(() -> mIsLoading.postValue(false))
                 .doOnSuccess(response -> mIsErrorVisible.postValue(false))
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()) // "listen" on UIThread
                 .subscribe(
                         response -> showResponseStatus(response),
                         throwable -> {
@@ -65,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
 
     private void showResponseStatus(String response){
         Toast.makeText(this,"This is query result"+response,Toast.LENGTH_SHORT).show();
