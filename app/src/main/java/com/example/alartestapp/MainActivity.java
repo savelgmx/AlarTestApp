@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.alartestapp.api.AlarApi;
 import com.example.alartestapp.api.ApiUtils;
@@ -48,19 +49,25 @@ public class MainActivity extends AppCompatActivity {
           callAlarApi();
     }
     private void callAlarApi(){
-        mDisposable = mApi.getAuthResponce(BuildConfig.USERNAME,BuildConfig.PASSWORD)
+
+
+        mDisposable = ApiUtils.getApiService().getAuthResponce(BuildConfig.USERNAME,BuildConfig.PASSWORD)
                 .map(AuthResponse::getCode)
                 .doOnSubscribe(disposable -> mIsLoading.postValue(true))
                 .doFinally(() -> mIsLoading.postValue(false))
                 .doOnSuccess(response -> mIsErrorVisible.postValue(false))
                 .subscribeOn(Schedulers.io())
                 .subscribe(
-                        response -> mStorage.insertProjects(response),
+                        response -> showResponseStatus(response),
                         throwable -> {
-                            boolean value = mProjects.getValue() == null || mProjects.getValue().size() == 0;
-                            mIsErrorVisible.postValue(value);
+
                         });
 
+
+    }
+
+    private void showResponseStatus(String response){
+        Toast.makeText(this,"This is query result"+response,Toast.LENGTH_SHORT).show();
 
     }
 }

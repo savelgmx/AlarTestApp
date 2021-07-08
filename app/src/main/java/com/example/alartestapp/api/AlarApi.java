@@ -16,6 +16,8 @@ public interface AlarApi {
 При нажатии идет к серверу
 GET http://www.alarstudios.com/test/auth.cgi(параметры запроса: username=XXX, password=XXX),
 он возвращает JSON.
+
+https://www.alarstudios.com/test/auth.cgi?username=test&password=123
 Если "status" == "ok", то пропускаем, нет - показываем красиво,
 что логин/пароль неправильные. Сервер выдаст "ok" на "test"/"123"
 и тогда идем на следующий экран, запоминая "code". */
