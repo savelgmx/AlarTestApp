@@ -1,7 +1,7 @@
-package com.example.alartestapp.ui;
+package com.example.alartestapp.ui.data;
 
-import android.support.v4.app.Fragment;
-
+import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.example.alartestapp.common.BasePresenter;
 import com.example.alartestapp.common.PresenterFragment;
 import com.example.alartestapp.common.Refreshable;
@@ -9,17 +9,25 @@ import com.example.alartestapp.model.DataResponse;
 
 import java.util.List;
 
-
 public class DataFragment extends PresenterFragment
-        implements Refreshable,DataView {
+        implements Refreshable, DataView {
+
+    @InjectPresenter
+    DataPresenter mDataPresenter;
+
+    @ProvidePresenter
+    DataPresenter providePresenter() {
+        return new DataPresenter();
+    }
 
 
-        public static DataFragment newInstance() {
+
+    public static DataFragment newInstance() {
         return new DataFragment();
     }
 
-        @Override
-        protected BasePresenter getPresenter() {
+    @Override
+    protected BasePresenter getPresenter() {
         return null;
     }
 

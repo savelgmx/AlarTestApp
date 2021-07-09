@@ -1,4 +1,4 @@
-package com.example.alartestapp.ui;
+package com.example.alartestapp.ui.data;
 
 import com.example.alartestapp.common.BaseView;
 import com.example.alartestapp.model.DataResponse;

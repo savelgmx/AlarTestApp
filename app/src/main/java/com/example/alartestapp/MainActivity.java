@@ -62,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
     private void callAlarApi(){
 
 
+        //https://github.com/matthiasbruns/rxandroid2-retrofit2
+        // http://javaway.info/ispolzovanie-retrofit-2-v-prilozheniyah-android/
+
         mDisposable = ApiUtils.getApiService().getAuthResponce(BuildConfig.USERNAME,BuildConfig.PASSWORD)
                 .map(AuthResponse::getCode)
                 .doOnSubscribe(disposable -> mIsLoading.postValue(true))
