@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         //https://github.com/matthiasbruns/rxandroid2-retrofit2
         // http://javaway.info/ispolzovanie-retrofit-2-v-prilozheniyah-android/
 
-        mDisposable = ApiUtils.getApiService().getAuthResponce(BuildConfig.USERNAME,BuildConfig.PASSWORD)
+ /*       mDisposable = ApiUtils.getApiService().getAuthResponce(BuildConfig.USERNAME,BuildConfig.PASSWORD)
                 .map(AuthResponse::getCode)
                 .doOnSubscribe(disposable -> mIsLoading.postValue(true))
                 .doFinally(() -> mIsLoading.postValue(false))
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                         throwable -> {
 
                         });
-
+*/
 
     }
 

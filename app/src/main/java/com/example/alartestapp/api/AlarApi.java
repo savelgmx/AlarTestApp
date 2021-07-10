@@ -21,9 +21,17 @@ https://www.alarstudios.com/test/auth.cgi?username=test&password=123
 Если "status" == "ok", то пропускаем, нет - показываем красиво,
 что логин/пароль неправильные. Сервер выдаст "ok" на "test"/"123"
 и тогда идем на следующий экран, запоминая "code". */
+
+/*
 @GET("auth.cgi")
 Single<AuthResponse> getAuthResponce(@Query("username") String username,
                                      @Query("password") String password);
+*/
+
+
+//try use basic authenfication
+@GET("auth.cgi")
+Single<AuthResponse>  authentication();
 
 
  /*

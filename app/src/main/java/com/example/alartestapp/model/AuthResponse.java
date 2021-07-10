@@ -9,12 +9,17 @@ public class AuthResponse implements Serializable
 {
 
     @SerializedName("status")
-    @Expose
     private String status;
     @SerializedName("code")
-    @Expose
     private String code;
-    private final static long serialVersionUID = 9169653644187420597L;
+
+
+
+   /// public AuthResponse()
+
+
+
+
 
     public String getStatus() {
         return status;
