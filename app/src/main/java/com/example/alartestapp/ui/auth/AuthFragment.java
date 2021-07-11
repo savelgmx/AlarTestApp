@@ -30,8 +30,7 @@ import io.reactivex.schedulers.Schedulers;
 //       //https://github.com/matthiasbruns/rxandroid2-retrofit2
 //        // http://javaway.info/ispolzovanie-retrofit-2-v-prilozheniyah-android/
 
-//TODO change androidManifest to AuthActivity as MAIN
-//TODO переписать этот фрагмент согласно https://github.com/savelgmx/rxjava2albumapp.git
+
 
 
 public class AuthFragment extends Fragment {
@@ -116,6 +115,7 @@ public class AuthFragment extends Fragment {
         mUserName.setOnFocusChangeListener(mOnEmailFocusChangeListener);
         return v;
     }
+
 }
 
 

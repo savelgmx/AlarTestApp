@@ -27,11 +27,6 @@ Single<AuthResponse> getAuthResponce(@Query("username") String username,
                                      @Query("password") String password);
 
 
-//try use basic authenfication
-@GET("auth.cgi")
-Single<AuthResponse>  authentication();
-
-
  /*
  2. Таблица с данными.
  Данные получаем по GET http://www.alarstudios.com/test/data.cgi
