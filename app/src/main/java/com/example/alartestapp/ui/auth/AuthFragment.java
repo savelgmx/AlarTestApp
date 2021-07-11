@@ -1,5 +1,6 @@
 package com.example.alartestapp.ui.auth;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,8 +16,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.alartestapp.BuildConfig;
 import com.example.alartestapp.R;
 import com.example.alartestapp.api.ApiUtils;
+import com.example.alartestapp.model.AuthResponse;
 import com.example.alartestapp.ui.data.DataActivity;
 import com.example.alartestapp.ui.data.DataFragment;
 
@@ -36,6 +39,11 @@ public class AuthFragment extends Fragment {
     private EditText mPassword;
     private Button mEnter;
 
+    private MutableLiveData<Boolean> mIsLoading = new MutableLiveData<>();
+    private MutableLiveData<Boolean> mIsErrorVisible = new MutableLiveData<>();
+
+
+
     public static AuthFragment newInstance() {
         Bundle args = new Bundle();
         AuthFragment fragment = new AuthFragment();
@@ -48,12 +56,13 @@ public class AuthFragment extends Fragment {
         @Override
         public void onClick(View view) {
             if (isPasswordValid()) {
-                String credentials = mUserName.getText().toString()+ ":" +mPassword.getText().toString();// concatenate username/email and password with colon for authentication
-                final String authHeader= "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);//form authenfication header
-                ApiUtils.getApiService(mUserName.getText().toString(),mPassword.getText().toString(),true)
-                        .authentication()
+                ApiUtils.getApiService().getAuthResponce(BuildConfig.USERNAME,BuildConfig.PASSWORD)
+                        .map(AuthResponse::getCode)
+                        .doOnSubscribe(disposable -> mIsLoading.postValue(true))
+                        .doFinally(() -> mIsLoading.postValue(false))
+                        .doOnSuccess(response -> mIsErrorVisible.postValue(false))
                         .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
+                        .observeOn(AndroidSchedulers.mainThread()) // "listen" on UIThread
                         .subscribe(code->{
                                     //здесь данные которые успешно извлечены из user после вызова API
                                     //далее действия при успехе
