@@ -1,13 +1,12 @@
 package com.example.alartestapp.ui.auth;
 
 import android.arch.lifecycle.MutableLiveData;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +15,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.alartestapp.BuildConfig;
+import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.example.alartestapp.R;
-import com.example.alartestapp.api.ApiUtils;
+import com.example.alartestapp.common.PresenterFragment;
 import com.example.alartestapp.model.AuthResponse;
-import com.example.alartestapp.ui.data.DataActivity;
-import com.example.alartestapp.ui.data.DataFragment;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import org.jetbrains.annotations.NotNull;
 
 
 //       //https://github.com/matthiasbruns/rxandroid2-retrofit2
@@ -33,7 +30,7 @@ import io.reactivex.schedulers.Schedulers;
 
 
 
-public class AuthFragment extends Fragment {
+public class AuthFragment extends PresenterFragment implements AuthView {
     private AutoCompleteTextView mUserName;
     private EditText mPassword;
     private Button mEnter;
@@ -41,6 +38,18 @@ public class AuthFragment extends Fragment {
     private MutableLiveData<Boolean> mIsLoading = new MutableLiveData<>();
     private MutableLiveData<Boolean> mIsErrorVisible = new MutableLiveData<>();
 
+    @InjectPresenter
+    AuthPresenter mPresenter;
+
+    @ProvidePresenter
+    AuthPresenter providePresenter(){
+        return new AuthPresenter(this);
+    }
+
+    @Override
+    protected AuthPresenter getPresenter(){
+        return mPresenter;
+    }
 
 
     public static AuthFragment newInstance() {
@@ -55,7 +64,12 @@ public class AuthFragment extends Fragment {
         @Override
         public void onClick(View view) {
             if (isPasswordValid()) {
-                ApiUtils.getApiService().getAuthResponce(BuildConfig.USERNAME,BuildConfig.PASSWORD)
+
+                mPresenter.AuthResponse();
+
+
+
+ /*               ApiUtils.getApiService().getAuthResponce(BuildConfig.USERNAME,BuildConfig.PASSWORD)
                         .map(AuthResponse::getCode)
                         .doOnSubscribe(disposable -> mIsLoading.postValue(true))
                         .doFinally(() -> mIsLoading.postValue(false))
@@ -76,7 +90,7 @@ public class AuthFragment extends Fragment {
                                 }
                         );
 
-
+*/
             } else {
 
                 showMessage(R.string.input_error);
@@ -85,7 +99,7 @@ public class AuthFragment extends Fragment {
     };
 
 
-    private View.OnFocusChangeListener mOnEmailFocusChangeListener = new View.OnFocusChangeListener() {
+    private View.OnFocusChangeListener mOnUserNameFocusChangeListener = new View.OnFocusChangeListener() {
         @Override
         public void onFocusChange(View view, boolean hasFocus) {
             if (hasFocus) {
@@ -112,10 +126,38 @@ public class AuthFragment extends Fragment {
         mPassword = v.findViewById(R.id.etPassword);
         mEnter = v.findViewById(R.id.buttonEnter);
         mEnter.setOnClickListener(mOnEnterClickListener);
-        mUserName.setOnFocusChangeListener(mOnEmailFocusChangeListener);
+        mUserName.setOnFocusChangeListener(mOnUserNameFocusChangeListener);
         return v;
     }
 
+    @Override
+    public void showAuthResponse(@NonNull AuthResponse authresponse) {
+
+    }
+
+    @Override
+    public void openDataFragment(@NotNull String code) {
+        //здесь собственно передаем параметры
+
+
+
+    }
+
+
+    @Override
+    public void showRefresh() {
+
+    }
+
+    @Override
+    public void hideRefresh() {
+
+    }
+
+    @Override
+    public void showError() {
+
+    }
 }
 
 

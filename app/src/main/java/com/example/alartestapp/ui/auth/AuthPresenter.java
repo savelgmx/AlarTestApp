@@ -1,9 +1,12 @@
 package com.example.alartestapp.ui.auth;
 
+import android.content.Intent;
+
 import com.example.alartestapp.BuildConfig;
 import com.example.alartestapp.api.ApiUtils;
 import com.example.alartestapp.common.BasePresenter;
 import com.example.alartestapp.model.AuthResponse;
+import com.example.alartestapp.ui.data.DataActivity;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -15,26 +18,50 @@ public class AuthPresenter extends BasePresenter<AuthView> {
     }
 
     public void AuthResponse(){
+        mCompositeDisposable.add(
 
-        //https://github.com/matthiasbruns/rxandroid2-retrofit2
-        // http://javaway.info/ispolzovanie-retrofit-2-v-prilozheniyah-android/
+        ApiUtils.getApiService().getAuthResponce(BuildConfig.USERNAME,BuildConfig.PASSWORD)
+                .subscribeOn(Schedulers.io())
+                .doOnSuccess(response -> getViewState().showAuthResponse(response))
+                .map(AuthResponse::getCode)
+                .observeOn(AndroidSchedulers.mainThread()) // "listen" on UIThread
+                .doOnSubscribe(disposable -> getViewState().showRefresh())
+                .doFinally(getViewState()::hideRefresh)
+                .subscribe(code->{
+                            //здесь данные которые успешно извлечены из user после вызова API
+                            //далее действия при успехе
+                    getViewState().openDataFragment(code);
 
 /*
-        mCompositeDisposable = ApiUtils.getApiService().getAuthResponce(BuildConfig.USERNAME, BuildConfig.PASSWORD)
-                .map(AuthResponse::getCode)
-                .doOnSubscribe(disposable -> mIsLoading.postValue(true))
-                .doFinally(() -> mIsLoading.postValue(false))
-                .doOnSuccess(response -> mIsErrorVisible.postValue(false))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()) // "listen" on UIThread
-                .subscribe(
-                        response -> showResponseStatus(response),
-                        throwable -> {
-
-                        });
-
+                            Intent startProfileIntent = new Intent(getActivity(), DataActivity.class);
+                            startProfileIntent.putExtra(DataActivity.CODE_KEY, code);
+                            startActivity(startProfileIntent);
 */
 
+
+                        },throwable -> getViewState().showError())
+                            //  Toast.makeText(getActivity(),R.string.auth_error, Toast.LENGTH_SHORT).show();
+
+
+        );
+
+/*
+        mCompositeDisposable.add(
+                ApiUtils.getApiService().getProjects(BuildConfig.API_QUERY)
+                        .subscribeOn(Schedulers.io())
+                        .doOnSuccess(mStorage::insertProjects)
+                        .onErrorReturn(throwable ->
+                                ApiUtils.NETWORK_EXCEPTIONS.contains(throwable.getClass()) ? mStorage.getProjects() : null)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnSubscribe(disposable -> getViewState().showRefresh())
+                        .doFinally(getViewState()::hideRefresh)
+                        .subscribe(
+                                response -> getViewState().showProjects(response.getProjects()),
+                                throwable -> getViewState().showError())
+        );
+    }
+
+ */
 
     }
 

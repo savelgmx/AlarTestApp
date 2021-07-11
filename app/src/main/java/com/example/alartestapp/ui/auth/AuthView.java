@@ -8,6 +8,6 @@ import java.util.List;
 import io.reactivex.annotations.NonNull;
 
 public interface AuthView extends BaseView {
-    void showAuthResponse(@NonNull List<AuthResponse> authresponses);
+    void showAuthResponse(@NonNull AuthResponse authresponse);
     void openDataFragment(@NonNull String code);
 }
