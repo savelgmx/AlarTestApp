@@ -18,8 +18,8 @@ public abstract class SingleFragmentActivity extends AppCompatActivity
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    //    setContentView(R.layout.ac_swipe_container);
-    //    mSwipeRefreshLayout = findViewById(R.id.refresher);
+        setContentView(R.layout.ac_swipe_container);
+        mSwipeRefreshLayout = findViewById(R.id.refresher);
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         if (savedInstanceState == null) {

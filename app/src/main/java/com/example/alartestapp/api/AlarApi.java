@@ -22,11 +22,9 @@ https://www.alarstudios.com/test/auth.cgi?username=test&password=123
 что логин/пароль неправильные. Сервер выдаст "ok" на "test"/"123"
 и тогда идем на следующий экран, запоминая "code". */
 
-/*
 @GET("auth.cgi")
 Single<AuthResponse> getAuthResponce(@Query("username") String username,
                                      @Query("password") String password);
-*/
 
 
 //try use basic authenfication

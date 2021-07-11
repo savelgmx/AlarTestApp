@@ -1,6 +1,7 @@
 package com.example.alartestapp.ui.data;
 
 import android.app.MediaRouteButton;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -28,11 +29,13 @@ public class DataFragment extends PresenterFragment
 
     @ProvidePresenter
     DataPresenter providePresenter() {
-        return new DataPresenter();
+        return new DataPresenter(this);
     }
 
-    public static DataFragment newInstance() {
-        return new DataFragment();
+    public static DataFragment newInstance(Bundle args) {
+        DataFragment fragment = new DataFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
