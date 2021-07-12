@@ -10,4 +10,5 @@ import io.reactivex.annotations.NonNull;
 public interface DataView extends BaseView {
     void showData(@NonNull List<DataResponse> data);
 
+
 }
