@@ -1,6 +1,7 @@
 package com.example.alartestapp.ui.auth;
 
 import android.arch.lifecycle.MutableLiveData;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,11 +18,17 @@ import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
+import com.example.alartestapp.BuildConfig;
 import com.example.alartestapp.R;
+import com.example.alartestapp.api.ApiUtils;
 import com.example.alartestapp.common.PresenterFragment;
 import com.example.alartestapp.model.AuthResponse;
+import com.example.alartestapp.ui.data.DataActivity;
 
 import org.jetbrains.annotations.NotNull;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
 //       //https://github.com/matthiasbruns/rxandroid2-retrofit2
@@ -65,11 +72,11 @@ public class AuthFragment extends PresenterFragment implements AuthView {
         public void onClick(View view) {
             if (isPasswordValid()) {
 
-                mPresenter.AuthResponse();
+//                mPresenter.AuthResponse();
 
 
 
- /*               ApiUtils.getApiService().getAuthResponce(BuildConfig.USERNAME,BuildConfig.PASSWORD)
+                ApiUtils.getApiService().getAuthResponce(BuildConfig.USERNAME,BuildConfig.PASSWORD)
                         .map(AuthResponse::getCode)
                         .doOnSubscribe(disposable -> mIsLoading.postValue(true))
                         .doFinally(() -> mIsLoading.postValue(false))
@@ -85,12 +92,12 @@ public class AuthFragment extends PresenterFragment implements AuthView {
                                     startActivity(startProfileIntent);
 
 
+
                                 },throwable -> {
                                   //  Toast.makeText(getActivity(),R.string.auth_error, Toast.LENGTH_SHORT).show();
                                 }
                         );
 
-*/
             } else {
 
                 showMessage(R.string.input_error);
@@ -137,7 +144,7 @@ public class AuthFragment extends PresenterFragment implements AuthView {
 
     @Override
     public void openDataFragment(@NotNull String code) {
-        //здесь собственно передаем параметры
+        //здесь собственно передаем параметр code
 
 
 

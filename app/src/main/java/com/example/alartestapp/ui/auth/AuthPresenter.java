@@ -26,17 +26,11 @@ public class AuthPresenter extends BasePresenter<AuthView> {
                 .map(AuthResponse::getCode)
                 .observeOn(AndroidSchedulers.mainThread()) // "listen" on UIThread
                 .doOnSubscribe(disposable -> getViewState().showRefresh())
-                .doFinally(getViewState()::hideRefresh)
+            //    .doFinally(getViewState()::hideRefresh)
                 .subscribe(code->{
                             //здесь данные которые успешно извлечены из user после вызова API
                             //далее действия при успехе
                     getViewState().openDataFragment(code);
-
-/*
-                            Intent startProfileIntent = new Intent(getActivity(), DataActivity.class);
-                            startProfileIntent.putExtra(DataActivity.CODE_KEY, code);
-                            startActivity(startProfileIntent);
-*/
 
 
                         },throwable -> getViewState().showError())

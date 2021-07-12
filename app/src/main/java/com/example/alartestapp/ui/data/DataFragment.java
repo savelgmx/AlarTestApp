@@ -2,6 +2,7 @@ package com.example.alartestapp.ui.data;
 
 import android.app.MediaRouteButton;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -21,8 +22,10 @@ public class DataFragment extends PresenterFragment
     private RecyclerView mRecyclerView;
     private RefreshOwner mRefreshOwner;
     private View mErrorView;
-
+    private String mCode;//код который пердается для запроса
     private DataAdapter mDataAdapter;
+
+    public static final String CODE_KEY = "CODE_KEY";
 
     @InjectPresenter
     DataPresenter mDataPresenter;
@@ -45,8 +48,31 @@ public class DataFragment extends PresenterFragment
 
     @Override
     public void onRefreshData() {
-
+        mDataPresenter.getDataResponse(mCode);
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (getArguments() != null) {
+            mCode = getArguments().getString(CODE_KEY);
+        }
+
+        if (getActivity() != null) {
+            getActivity().setTitle(mCode);
+        }
+
+/*
+        mDataView.setVisibility(View.VISIBLE);
+
+        mDataresenter = new DataPresenter(this);
+*/
+
+        onRefreshData();
+    }
+
+
 
 
     @Override

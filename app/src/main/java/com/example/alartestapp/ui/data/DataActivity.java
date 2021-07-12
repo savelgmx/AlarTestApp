@@ -1,5 +1,6 @@
 package com.example.alartestapp.ui.data;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.example.alartestapp.common.SingleFragmentActivity;
@@ -11,7 +12,7 @@ public class DataActivity extends SingleFragmentActivity {
     @Override
     protected Fragment getFragment() {
         if (getIntent()!= null){
-            return DataFragment.newInstance(getIntent().getBundleExtra(CODE_KEY));
+            return DataFragment.newInstance(getIntent().getExtras());
         }
         throw new IllegalStateException("getIntent cannot be null");
 
