@@ -22,7 +22,7 @@ public class DataFragment extends PresenterFragment
     private RecyclerView mRecyclerView;
     private RefreshOwner mRefreshOwner;
     private View mErrorView;
-    private String mCode;//код который пердается для запроса
+    private String mCode;//код который передается для запроса
     private DataAdapter mDataAdapter;
 
     public static final String CODE_KEY = "CODE_KEY";
@@ -60,15 +60,8 @@ public class DataFragment extends PresenterFragment
         }
 
         if (getActivity() != null) {
-            getActivity().setTitle(mCode);
+            getActivity().setTitle("Data");
         }
-
-/*
-        mDataView.setVisibility(View.VISIBLE);
-
-        mDataresenter = new DataPresenter(this);
-*/
-
         onRefreshData();
     }
 
