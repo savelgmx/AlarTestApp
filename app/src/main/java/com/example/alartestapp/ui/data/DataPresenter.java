@@ -24,15 +24,15 @@ public class DataPresenter extends BasePresenter<DataView> {
         mCompositeDisposable.add(ApiUtils.getApiService().getDataResponse(this.mCode,"100")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(disposable -> mView.showRefresh())
-                .doFinally(() -> mView.hideRefresh())
+                .doOnSubscribe(disposable -> getViewState().showRefresh())
+                .doFinally(() ->getViewState().hideRefresh())
                 .subscribe(
                         response -> {
-                       //     mView.showData(response.getUser());
+                            getViewState().showData(response.getData());
 
                         },
                         throwable -> {
-                         //   mView.showError()  ;
+                         getViewState().showError();
                         }
                 )
         );

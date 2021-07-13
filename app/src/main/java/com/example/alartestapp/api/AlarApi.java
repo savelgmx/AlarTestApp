@@ -3,6 +3,7 @@ package com.example.alartestapp.api;
 
 import com.example.alartestapp.model.Auth;
 import com.example.alartestapp.model.Data;
+import com.example.alartestapp.model.DataResponse;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;
@@ -37,6 +38,6 @@ Single<Auth> getAuthResponce(@Query("username") String username,
          (выберите любой внешний URL)
  */
 @GET("data.cgi")
- Single<Data> getDataResponse(@Query("code") String code, @Query("p") String p);
+ Single<DataResponse> getDataResponse(@Query("code") String code, @Query("p") String p);
  
 }
