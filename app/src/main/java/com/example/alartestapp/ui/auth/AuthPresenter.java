@@ -39,27 +39,8 @@ public class AuthPresenter extends BasePresenter<AuthView> {
 
         );
 
-/*
-        mCompositeDisposable.add(
-                ApiUtils.getApiService().getProjects(BuildConfig.API_QUERY)
-                        .subscribeOn(Schedulers.io())
-                        .doOnSuccess(mStorage::insertProjects)
-                        .onErrorReturn(throwable ->
-                                ApiUtils.NETWORK_EXCEPTIONS.contains(throwable.getClass()) ? mStorage.getProjects() : null)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doOnSubscribe(disposable -> getViewState().showRefresh())
-                        .doFinally(getViewState()::hideRefresh)
-                        .subscribe(
-                                response -> getViewState().showProjects(response.getProjects()),
-                                throwable -> getViewState().showError())
-        );
-    }
-
- */
 
     }
-
-
 
 
 

@@ -55,9 +55,10 @@ public class DataAdapter extends RecyclerView.Adapter<DataHolder> {
       notifyDataSetChanged();
    }
 
+
    public interface OnItemClickListener {
 
-      void onItemClick(String username);
+      void onItemClick(String lan,String lon);
    }
 
 }
