@@ -1,11 +1,11 @@
 package com.example.alartestapp.model;
 
         import java.io.Serializable;
-        import com.google.gson.annotations.Expose;
+
         import com.google.gson.annotations.SerializedName;
 
 
-public class AuthResponse implements Serializable
+public class Auth implements Serializable
 {
 
     @SerializedName("status")
@@ -15,7 +15,7 @@ public class AuthResponse implements Serializable
 
 
 
-   /// public AuthResponse()
+   /// public Auth()
 
 
 
@@ -40,7 +40,7 @@ public class AuthResponse implements Serializable
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(AuthResponse.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append(Auth.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("status");
         sb.append('=');
         sb.append(((this.status == null)?"<null>":this.status));

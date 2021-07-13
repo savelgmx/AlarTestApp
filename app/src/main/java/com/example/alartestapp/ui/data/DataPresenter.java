@@ -21,9 +21,8 @@ public class DataPresenter extends BasePresenter<DataView> {
     public void getDataResponse(String code){
         this.mCode = code;
         //здесь должен быть запрос GET http://www.alarstudios.com/test/data.cgi
-        mCompositeDisposable.add(ApiUtils.getApiService().getDataResponse(this.mCode,"10")
+        mCompositeDisposable.add(ApiUtils.getApiService().getDataResponse(this.mCode,"100")
                 .subscribeOn(Schedulers.io())
-                .doOnSuccess(response ->{})
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(disposable -> mView.showRefresh())
                 .doFinally(() -> mView.hideRefresh())
@@ -32,7 +31,11 @@ public class DataPresenter extends BasePresenter<DataView> {
                        //     mView.showData(response.getUser());
 
                         },
-                        throwable -> mView.showError()));
+                        throwable -> {
+                         //   mView.showError()  ;
+                        }
+                )
+        );
 
     }
 }

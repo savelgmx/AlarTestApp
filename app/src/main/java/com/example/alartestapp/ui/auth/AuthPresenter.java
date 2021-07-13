@@ -1,12 +1,9 @@
 package com.example.alartestapp.ui.auth;
 
-import android.content.Intent;
-
 import com.example.alartestapp.BuildConfig;
 import com.example.alartestapp.api.ApiUtils;
 import com.example.alartestapp.common.BasePresenter;
-import com.example.alartestapp.model.AuthResponse;
-import com.example.alartestapp.ui.data.DataActivity;
+import com.example.alartestapp.model.Auth;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -23,7 +20,7 @@ public class AuthPresenter extends BasePresenter<AuthView> {
         ApiUtils.getApiService().getAuthResponce(BuildConfig.USERNAME,BuildConfig.PASSWORD)
                 .subscribeOn(Schedulers.io())
                 .doOnSuccess(response -> getViewState().showAuthResponse(response))
-                .map(AuthResponse::getCode)
+                .map(Auth::getCode)
                 .observeOn(AndroidSchedulers.mainThread()) // "listen" on UIThread
                 .doOnSubscribe(disposable -> getViewState().showRefresh())
             //    .doFinally(getViewState()::hideRefresh)

@@ -1,18 +1,14 @@
 package com.example.alartestapp.api;
 
 import com.example.alartestapp.BuildConfig;
-import com.example.alartestapp.model.AuthResponse;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
-import java.net.URI;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.List;
 
-import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;

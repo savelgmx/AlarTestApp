@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 
 import com.example.alartestapp.R;
-import com.example.alartestapp.model.DataResponse;
+import com.example.alartestapp.model.Data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import io.reactivex.annotations.NonNull;
 
 public class DataAdapter extends RecyclerView.Adapter<DataHolder> {
    @NonNull
-   private final List<DataResponse> mData = new ArrayList<>();
+   private final List<Data> mData = new ArrayList<>();
    private final OnItemClickListener mOnItemClickListener;
 
    public DataAdapter(OnItemClickListener onItemClickListener) {
@@ -33,8 +33,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataHolder> {
 
    @Override
    public void onBindViewHolder(@NonNull DataHolder holder, int position) {
-      DataResponse dataResponse = mData.get(position);
-      holder.bind(dataResponse,mOnItemClickListener);
+      Data data = mData.get(position);
+      holder.bind(data,mOnItemClickListener);
 
    }
 
@@ -44,7 +44,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataHolder> {
    }
 
 
-   public void addData(List<DataResponse> data, boolean isRefreshed) {
+   public void addData(List<Data> data, boolean isRefreshed) {
       if (isRefreshed) {
          mData.clear();
       }

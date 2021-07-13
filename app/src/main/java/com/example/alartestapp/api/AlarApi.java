@@ -1,8 +1,8 @@
 package com.example.alartestapp.api;
 
 
-import com.example.alartestapp.model.AuthResponse;
-import com.example.alartestapp.model.DataResponse;
+import com.example.alartestapp.model.Auth;
+import com.example.alartestapp.model.Data;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;
@@ -23,8 +23,8 @@ https://www.alarstudios.com/test/auth.cgi?username=test&password=123
 и тогда идем на следующий экран, запоминая "code". */
 
 @GET("auth.cgi")
-Single<AuthResponse> getAuthResponce(@Query("username") String username,
-                                     @Query("password") String password);
+Single<Auth> getAuthResponce(@Query("username") String username,
+                             @Query("password") String password);
 
 
  /*
@@ -37,6 +37,6 @@ Single<AuthResponse> getAuthResponce(@Query("username") String username,
          (выберите любой внешний URL)
  */
 @GET("data.cgi")
- Single<DataResponse> getDataResponse(@Query("code") String code, @Query("p") String p);
+ Single<Data> getDataResponse(@Query("code") String code, @Query("p") String p);
  
 }

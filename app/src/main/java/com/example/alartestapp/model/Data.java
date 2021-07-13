@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
-public class DataResponse implements Serializable {
+public class Data implements Serializable {
 
     @SerializedName("status")
     @Expose
@@ -45,7 +45,7 @@ public class DataResponse implements Serializable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(DataResponse.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append(Data.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("status");
         sb.append('=');
         sb.append(((this.status == null)?"<null>":this.status));

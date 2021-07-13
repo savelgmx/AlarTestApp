@@ -1,6 +1,5 @@
 package com.example.alartestapp.ui.data;
 
-import android.app.MediaRouteButton;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,7 +17,7 @@ import com.example.alartestapp.common.BasePresenter;
 import com.example.alartestapp.common.PresenterFragment;
 import com.example.alartestapp.common.RefreshOwner;
 import com.example.alartestapp.common.Refreshable;
-import com.example.alartestapp.model.DataResponse;
+import com.example.alartestapp.model.Data;
 
 import java.util.List;
 
@@ -102,7 +101,7 @@ public class DataFragment extends PresenterFragment
 
 
     @Override
-    public void showData(List<DataResponse> data) {
+    public void showData(List<Data> data) {
 
         mErrorView.setVisibility(View.GONE);
         mRecyclerView.setVisibility(View.VISIBLE);
