@@ -21,7 +21,7 @@ public class DataPresenter extends BasePresenter<DataView> {
     public void getDataResponse(String code){
         this.mCode = code;
         //здесь должен быть запрос GET http://www.alarstudios.com/test/data.cgi
-        mCompositeDisposable.add(ApiUtils.getApiService().getDataResponse(this.mCode,"100")
+        mCompositeDisposable.add(ApiUtils.getApiService().getDataResponse(this.mCode,"10")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(disposable -> getViewState().showRefresh())

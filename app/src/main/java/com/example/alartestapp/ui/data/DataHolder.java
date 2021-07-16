@@ -26,11 +26,11 @@ public class DataHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void bind(Datum item, DataAdapter.OnItemClickListener onItemClickListener) {
+    public void bind(Data item, DataAdapter.OnItemClickListener onItemClickListener) {
 
 
 
-        mName.setText(item.getName());
+      //  mName.setText(item.getName());
         mCountry.setText("westeros");
         mLon.setText("lon");
         mLat.setText("hh");
