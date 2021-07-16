@@ -16,7 +16,7 @@ import io.reactivex.annotations.NonNull;
 
 public class DataAdapter extends RecyclerView.Adapter<DataHolder> {
    @NonNull
-   private final List<Data> mData = new ArrayList<>();
+   private final List<Data.Datum> mData = new ArrayList<>();
    private final OnItemClickListener mOnItemClickListener;
 
    public DataAdapter(OnItemClickListener onItemClickListener) {
@@ -33,7 +33,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataHolder> {
 
    @Override
    public void onBindViewHolder(@NonNull DataHolder holder, int position) {
-      Data data = mData.get(position);
+      Data.Datum data = mData.get(position);
       holder.bind(data,mOnItemClickListener);
 
    }
@@ -44,7 +44,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataHolder> {
    }
 
 
-   public void addData(List<Data> data, boolean isRefreshed) {
+   public void addData(List<Data.Datum> data, boolean isRefreshed) {
       if (isRefreshed) {
          mData.clear();
       }

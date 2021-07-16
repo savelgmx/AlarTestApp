@@ -101,7 +101,7 @@ public class DataFragment extends PresenterFragment
 
 
     @Override
-    public void showData(List<Data> data) {
+    public void showData(List<Data.Datum> data) {
 
         mErrorView.setVisibility(View.GONE);
         mRecyclerView.setVisibility(View.VISIBLE);
@@ -128,9 +128,11 @@ public class DataFragment extends PresenterFragment
     }
 
 
+
     @Override
     public void onItemClick(String lan, String lon) {
         //здесь мы должны вызывать фрагмент показа карты и передать в него координаты
+        //Intent
 
     }
 }

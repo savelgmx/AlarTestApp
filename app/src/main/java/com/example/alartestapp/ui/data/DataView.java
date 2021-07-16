@@ -8,7 +8,7 @@ import java.util.List;
 import io.reactivex.annotations.NonNull;
 
 public interface DataView extends BaseView {
-    void showData(@NonNull List<Data> data);
+    void showData(@NonNull List<Data.Datum> data);
 
 
 }

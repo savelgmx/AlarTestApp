@@ -26,8 +26,7 @@ public class DataHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void bind(Data item, DataAdapter.OnItemClickListener onItemClickListener) {
-
+    public void bind(Data.Datum item, DataAdapter.OnItemClickListener onItemClickListener) {
 
 
       //  mName.setText(item.getName());
@@ -36,25 +35,10 @@ public class DataHolder extends RecyclerView.ViewHolder {
         mLat.setText("hh");
 
 
-    }
-/*
-    public void bind(Project item, ProjectsAdapter.OnItemClickListener onItemClickListener) {
-        Picasso.with(mImage.getContext()).load(item.getCover().getPhotoUrl())
-                .fit()
-                .into(mImage);
-
-        mName.setText(item.getName());
-        mUsername.setText(item.getOwners().get(FIRST_OWNER_INDEX).getUsername());
-        mPublishedOn.setText(DateUtils.format(item.getPublishedOn()));
-
         if (onItemClickListener != null) {
-            itemView.setOnClickListener(v -> onItemClickListener.onItemClick(
-                    item.getOwners()
-                            .get(FIRST_OWNER_INDEX)
-                            .getUsername()
-            ));
+            itemView.setOnClickListener(v -> onItemClickListener.onItemClick(String.valueOf(mLon),String.valueOf(mLat)));
         }
-    }
 
- */
+
+    }
 }
