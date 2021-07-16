@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.example.alartestapp.R;
 import com.example.alartestapp.model.Data;
-import com.example.alartestapp.model.Datum;
+
 
 public class DataHolder extends RecyclerView.ViewHolder {
 
