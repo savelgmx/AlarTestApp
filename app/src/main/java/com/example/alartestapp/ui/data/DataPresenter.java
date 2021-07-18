@@ -34,6 +34,8 @@ public class DataPresenter extends BasePresenter<DataView> {
 
     //https://github.com/matthiasbruns/rxandroid2-retrofit2
 
+    //https://github.com/sarimk80/SimpleDagger
+
     /*
         public void getDataResponse(String code){
             this.mCode = code;
