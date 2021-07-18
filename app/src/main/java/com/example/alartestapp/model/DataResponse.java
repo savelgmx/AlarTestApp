@@ -8,12 +8,12 @@ import java.util.List;
 public class DataResponse implements Serializable {
 
     @SerializedName("data")
-    private List<Data> mData;
+    public List<Data.Datum> mData;
 
-    public List<Data> getData(){
+    public List<Data.Datum> getData(){
         return mData;
     }
-    public void setData(List<Data> data){
+    public void setData(List<Data.Datum> data){
         mData =data;
     }
 

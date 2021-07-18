@@ -38,6 +38,6 @@ Single<Auth> getAuthResponce(@Query("username") String username,
          (выберите любой внешний URL)
  */
 @GET("data.cgi")
- Single<Data> getDataResponse(@Query("code") String code, @Query("p") String p);
+ Single<DataResponse> getDataResponse(@Query("code") String code, @Query("p") String p);
  
 }
